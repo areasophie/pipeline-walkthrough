@@ -1,0 +1,55 @@
+apiVersion: flagger.app/v1beta1
+kind: Canary
+metadata:
+  annotations:
+  name: sample-app
+spec:
+  analysis:
+    interval: 5s
+    maxWeight: 50
+    metrics:
+    - interval: 5s
+      name: request-success-rate
+      thresholdRange:
+        min: 99
+    - interval: 5s
+      name: request-duration
+      thresholdRange:
+        max: 500
+    stepWeight: 5
+    threshold: 5
+    webhooks:
+    - metadata:
+        cmd: wget -q -O - http://sample-app.pipeline-gamma:5000/health | grep OK
+        type: bash
+      name: acceptance-test
+      timeout: 30s
+      type: pre-rollout
+      url: http://flagger-loadtester.test/
+    - metadata:
+        cmd: hey -z 1m -q 10 -c 2 http://sample-app.pipeline-gamma:5000/health
+      name: load-test
+      timeout: 5s
+      url: http://flagger-loadtester.test/
+  autoscalerRef:
+    apiVersion: autoscaling/v2beta1
+    kind: HorizontalPodAutoscaler
+    name: sample-app
+  progressDeadlineSeconds: 60
+  provider: appmesh:v1beta2
+  service:
+    match:
+    - uri:
+        prefix: /
+    port: 5000
+    retries:
+      attempts: 3
+      perTryTimeout: 5s
+      retryOn: gateway-error,client-error,stream-error
+    rewrite:
+      uri: /
+    timeout: 15s
+  targetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: sample-app
