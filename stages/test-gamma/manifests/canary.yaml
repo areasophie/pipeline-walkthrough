@@ -20,17 +20,17 @@ spec:
     threshold: 5
     webhooks:
     - metadata:
-        cmd: wget -q -O - http://sample-app.pipeline-gamma:5000/health | grep OK
+        cmd: wget -q -O - http://sample-app.pipeline-gamma/health | grep OK
         type: bash
       name: acceptance-test
       timeout: 30s
       type: pre-rollout
-      url: http://flagger-loadtester.test/
+      url: http://flagger-loadtester.pipeline-gamma/
     - metadata:
-        cmd: hey -z 1m -q 10 -c 2 http://sample-app.pipeline-gamma:5000/health
+        cmd: hey -z 1m -q 10 -c 2 http://sample-app.pipeline-gamma/health
       name: load-test
       timeout: 5s
-      url: http://flagger-loadtester.test/
+      url: http://flagger-loadtester.pipeline-gamma/
   autoscalerRef:
     apiVersion: autoscaling/v2beta1
     kind: HorizontalPodAutoscaler
@@ -41,7 +41,8 @@ spec:
     match:
     - uri:
         prefix: /
-    port: 5000
+    port: 80
+    targetPort: 5000
     retries:
       attempts: 3
       perTryTimeout: 5s

@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: sample-app-alpha
+  name: sample-app-alpha-core
   namespace: argocd
   finalizers:
   - resources-finalizer.argocd.argoproj.io
@@ -11,6 +11,6 @@ spec:
     server: https://kubernetes.default.svc
   project: default
   source:
-    path: stages/test-alpha/manifests
+    path: manifests/sample-app
     repoURL: https://github.com/areasophie/pipeline-walkthrough
     targetRevision: HEAD

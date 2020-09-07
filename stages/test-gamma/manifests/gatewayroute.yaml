@@ -1,0 +1,13 @@
+apiVersion: appmesh.k8s.aws/v1beta2
+kind: GatewayRoute
+metadata:
+  name: sample-app
+spec:
+  httpRoute:
+    action:
+      target:
+        virtualService:
+          virtualServiceRef:
+            name: sample-app
+    match:
+      prefix: /sample-app
