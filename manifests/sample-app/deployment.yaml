@@ -19,4 +19,4 @@ spec:
         name: sample-app
         env:
         - name: APP_VERSION
-          value: "1.1"
+          value: "1.2"
