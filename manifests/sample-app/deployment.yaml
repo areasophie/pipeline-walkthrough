@@ -15,5 +15,5 @@ spec:
         app: sample-app
     spec:
       containers:
-      - image: 840805942392.dkr.ecr.ap-northeast-1.amazonaws.com/areasophie/pipeline-sample-app:cba8403
+      - image: 840805942392.dkr.ecr.ap-northeast-1.amazonaws.com/areasophie/pipeline-sample-app:e81a54c
         name: sample-app
