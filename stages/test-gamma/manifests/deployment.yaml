@@ -15,8 +15,8 @@ spec:
         app: sample-app
     spec:
       containers:
-      - image: 840805942392.dkr.ecr.ap-northeast-1.amazonaws.com/areasophie/pipeline-sample-app:a9f9e10
+      - image: 840805942392.dkr.ecr.ap-northeast-1.amazonaws.com/areasophie/pipeline-sample-app:9ca8f82
         name: sample-app
         env:
         - name: APP_VERSION
-          value: "1.1"
+          value: "1.0"
