@@ -19,4 +19,4 @@ spec:
         name: sample-app
         env:
         - name: APP_VERSION
-          value: "SNAPSHOT"
+          value: "SNAPSHOT 1"
