@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: sample-app
+  name: sample-app
+spec:
+  replicas: 0
+  selector:
+    matchLabels:
+      app: sample-app
+  template:
+    metadata:
+      labels:
+        app: sample-app
+    spec:
+      containers:
+      - image: 840805942392.dkr.ecr.ap-northeast-1.amazonaws.com/areasophie/pipeline-sample-app:a9f9e10
+        name: sample-app
+        env:
+        - name: APP_VERSION
+          value: "1.0"
